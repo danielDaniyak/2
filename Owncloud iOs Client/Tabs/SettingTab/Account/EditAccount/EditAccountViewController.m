@@ -257,9 +257,10 @@ NSString *relaunchErrorCredentialFilesNotification = @"relaunchErrorCredentialFi
             userDtoEdited.urlRedirected = APP_DELEGATE.urlServerRedirected;
             userDtoEdited.predefinedUrl = k_default_url_server;
             
-            [ManageUsersDB overrideAllUploadsWithNewURL:[UtilsUrls getFullRemoteServerPath:userDtoEdited]];
+            [ManageUploadsDB overrideAllUploadsWithNewURL:[UtilsUrls getFullRemoteServerPath:userDtoEdited]];
             
             [ManageUsersDB updateUserByUserDto:userDtoEdited];
+            [ManageUsersDB updateAllUsersWithUrl:userDtoEdited.url andRedirectedUrl:userDtoEdited.urlRedirected];
         }
         
         //update keychain user

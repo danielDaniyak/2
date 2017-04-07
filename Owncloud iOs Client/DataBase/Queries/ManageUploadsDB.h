@@ -177,5 +177,10 @@
 + (void) setTaskIdentifier:(NSInteger)taskIdentifier forUploadOffline:(UploadsOfflineDto *)upload;
 
 
+/*
+ * Method set all uploads with the new predefined URL. Migrate URL mode active.
+ */
++(void)overrideAllUploadsWithNewURL:(NSString *)newValue;
+
 
 @end

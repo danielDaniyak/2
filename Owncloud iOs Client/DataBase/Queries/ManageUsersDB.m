@@ -789,24 +789,6 @@
 
 #pragma mark - Force update predefined URL
 
-+(void)overrideAllUploadsWithNewURL:(NSString *)newValue {
-    
-    NSString *oldUrl = [UtilsUrls getFullRemoteServerPath:[ManageUsersDB getActiveUser]];
-    
-    FMDatabaseQueue *queue = Managers.sharedDatabase;
-    
-    [queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
-        BOOL correctQuery=NO;
-        
-        correctQuery = [db executeUpdate:@"UPDATE uploads_offline SET destiny_folder=replace(destiny_folder, ?, ?)", oldUrl, newValue];
-        
-        if (!correctQuery) {
-            DLog(@"Error overriding uploads urls");
-        }
-    }];
-    
-}
-
 +(void)updatePredefinedUrlTo:(NSString *)newValue byUserId:(NSInteger)userId {
     DLog(@"Update predefined URL of userId %ld", (long)userId);
     
@@ -819,6 +801,22 @@
         
         if (!correctQuery) {
             DLog(@"Error setting predefined URL of userId %ld", (long)userId);
+        }
+    }];
+}
+
++(void)updateAllUsersWithUrl:(NSString *)newUrl andRedirectedUrl:(NSString *)newRedirectedUrl {
+    DLog(@"Update psetting URL and redirected URL of all users");
+    
+    FMDatabaseQueue *queue = Managers.sharedDatabase;
+    
+    [queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        BOOL correctQuery=NO;
+        
+        correctQuery = [db executeUpdate:@"UPDATE users SET url=?, url_redirected=? ", newUrl, newRedirectedUrl ];
+        
+        if (!correctQuery) {
+            DLog(@"Error setting URL and redirected URL of all users");
         }
     }];
 }

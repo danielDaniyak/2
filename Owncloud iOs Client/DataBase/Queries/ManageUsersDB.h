@@ -146,8 +146,11 @@
  */
 +(BOOL)isUsers;
 
-+(void)overrideAllUploadsWithNewURL:(NSString *)newValue;
+
+//Force update predefined URL
 
 +(void)updatePredefinedUrlTo:(NSString *)newValue byUserId:(NSInteger)userId;
+
++(void)updateAllUsersWithUrl:(NSString *)newUrl andRedirectedUrl:(NSString *)newRedirectedUrl;
 
 @end

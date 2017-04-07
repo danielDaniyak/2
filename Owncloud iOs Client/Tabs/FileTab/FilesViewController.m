@@ -1949,7 +1949,9 @@
  */
 - (void)stopPullRefresh{
     //_refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString: NSLocalizedString(@"pull_down_refresh", nil)];
-    [_refreshControl endRefreshing];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_refreshControl endRefreshing];
+    });
 }
 
 /*
